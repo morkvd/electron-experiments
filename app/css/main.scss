@@ -1,0 +1,115 @@
+$bg-color: #eee;
+$main-text-color: black;
+
+@font-face {
+    font-family: 'ubuntu_monoregular';
+    src: url('../fonts/ubuntumono-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ubuntu_monobold';
+    src: url('../fonts/ubuntumono-bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ubuntu_monoitalic';
+    src: url('../fonts/ubuntumono-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ubuntu_monobolditalic';
+    src: url('../fonts/ubuntumono-bolditalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+// Elements
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+*::selection {
+  background:transparent;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: $bg-color;
+  color: $main-text-color;
+  overflow: hidden;
+}
+
+// Menu-bar component
+.c-menu-bar {
+  height: 2em;
+  width: 100%;
+  background-color: white;
+  -webkit-app-region: drag;
+  position: relative;
+
+  .menu-bar--title {
+    text-align: center;
+    display: block;
+    margin: 0;
+    line-height: 2em;
+    font-family: 'ubuntu_monoregular', monospace;
+    font-weight: normal;
+    font-size: 1em;
+  }
+  .menu-bar--btn-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .menu-bar--btn {
+    height: 2em;
+    width: 2em;
+    display: inline-block;
+    background-color: #ccc;
+    text-align: center;
+    font-family: 'ubuntu_monoregular', monospace;
+    line-height: 2em;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+
+    &.menu-bar--btn__exit {
+      background-color: #a10000;
+      color: white;
+    }
+  }
+}
+
+.tile-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+.tile {
+  font-family: 'ubuntu_monoregular', monospace;
+  height: 24px;
+  width: 24px !important;
+  background-color: #333;
+  color: #3e3;
+  line-height: 24px;
+  font-size: 24px;
+  text-align: center;
+  float: left;
+}
+
+.regular    { font-family: 'ubuntu_monoregular', monospace; }
+.bold       { font-family: 'ubuntu_monobold', monospace; }
+.italic     { font-family: 'ubuntu_monoitalic', monospace; }
+.bolditalic { font-family: 'ubuntu_monobolditalic', monospace; }
+.player     { color: hsl(0, 80%, 80%); }

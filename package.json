@@ -1,0 +1,29 @@
+{
+  "name": "electron-test",
+  "version": "0.1.0",
+  "description": "My first electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "jsx": "babel ./app/js/window/mainWindow.jsx -o ./app/js/window/mainWindow.js",
+    "sass": "node-sass --output-style compressed -o ./app/css ./app/css"
+  },
+  "keywords": [
+    "Electron",
+    "experiment",
+    "learning"
+  ],
+  "author": "Mark van Dijken",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "babel-cli": "^6.8.0",
+    "electron-prebuilt": "^0.37.8",
+    "eslint": "^2.10.0",
+    "eslint-plugin-react": "^5.1.1",
+    "node-sass": "^3.7.0"
+  },
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  }
+}
