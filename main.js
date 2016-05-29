@@ -92,18 +92,17 @@ const gamestate = {
     phases: ['initial', 'playing', 'end'],
     i: 0,
     current() {
-      return this.phase[this.phaseIndex];
+      return this.phases[this.i];
     },
     next() {
-      this.phaseIndex = (this.phaseIndex + 1) % this.phase.length;
+      this.i = (this.i + 1) % this.phases.length;
     }
   },
   level: [],
   playerPos: [0, 0]
 };
 
-
-// level generation
+// Level generation
 function generateLevel() {
   let lvl = [];
   let size = 30;
