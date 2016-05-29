@@ -77,7 +77,8 @@ function handleKey(key) {
   if (key === 'CommandOrControl+Q') {
     globalShortcut.unregisterAll();
     app.quit();
-  } else if (key === 'Space') {
+  } else if (key === 'Space' && gamestate.phaseGet() === 'initial') {
+    gamestate.phaseNext();
     mainWindow.webContents.send('level-updated', generateLevel());
   }
 }
@@ -87,9 +88,18 @@ function handleKey(key) {
 
 // Global reference to the current state of the game
 const gamestate = {
+  phase: ['initial', 'playing', 'end'],
+  phaseIndex: 0,
+  phaseGet() {
+    return this.phase[this.phaseIndex];
+  },
+  phaseNext() {
+    this.phaseIndex = (this.phaseIndex + 1) % this.phase.length;
+  },
   level: [],
   playerPos: [0, 0]
 };
+
 
 // level generation
 function generateLevel() {
