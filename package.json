@@ -14,7 +14,7 @@
     "learning"
   ],
   "author": "Mark van Dijken",
-  "license": "CC0-1.0",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "electron-prebuilt": "^0.37.8",
