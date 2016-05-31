@@ -1,29 +1,35 @@
 $bg-color: #eee;
-$main-text-color: black;
+$main-text-color: #000;
+$white: #fff;
+$menu-button: #ccc;
+$menu-button-background: #a10000;
+$tile-text: #3e3;
+$tile-background: #333;
+$player-color: hsl(0, 80%, 80%);
 
 @font-face {
-    font-family: 'ubuntu_monoregular';
-    src: url('../fonts/ubuntumono-regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ubuntu_monoregular';
+  src: url('../fonts/ubuntumono-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'ubuntu_monobold';
-    src: url('../fonts/ubuntumono-bold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ubuntu_monobold';
+  src: url('../fonts/ubuntumono-bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'ubuntu_monoitalic';
-    src: url('../fonts/ubuntumono-italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ubuntu_monoitalic';
+  src: url('../fonts/ubuntumono-italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'ubuntu_monobolditalic';
-    src: url('../fonts/ubuntumono-bolditalic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ubuntu_monobolditalic';
+  src: url('../fonts/ubuntumono-bolditalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 
@@ -32,84 +38,91 @@ $main-text-color: black;
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
+
 *::selection {
-  background:transparent;
+  background: transparent;
 }
+
 html,
 body {
-  padding: 0;
-  margin: 0;
   background-color: $bg-color;
   color: $main-text-color;
+  margin: 0;
   overflow: hidden;
+  padding: 0;
 }
 
 // Menu-bar component
 .c-menu-bar {
-  height: 2em;
-  width: 100%;
-  background-color: white;
   -webkit-app-region: drag;
+  background-color: $white;
+  height: 2em;
   position: relative;
+  width: 100%;
 
   .menu-bar--title {
-    text-align: center;
     display: block;
-    margin: 0;
-    line-height: 2em;
     font-family: 'ubuntu_monoregular', monospace;
-    font-weight: normal;
     font-size: 1em;
-  }
-  .menu-bar--btn-box {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0;
-    margin: 0;
-  }
-  .menu-bar--btn {
-    height: 2em;
-    width: 2em;
-    display: inline-block;
-    background-color: #ccc;
-    text-align: center;
-    font-family: 'ubuntu_monoregular', monospace;
+    font-weight: normal;
     line-height: 2em;
-    cursor: pointer;
+    margin: 0;
+    text-align: center;
+  }
+
+  .menu-bar--btn-box {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .menu-bar--btn {
     -webkit-app-region: no-drag;
+    background-color: $menu-button;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'ubuntu_monoregular', monospace;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    width: 2em;
 
     &.menu-bar--btn__exit {
-      background-color: #a10000;
-      color: white;
+      background-color: $menu-button-background;
+      color: $white;
     }
   }
 }
 
 .tile-row {
+  float: left;
   list-style: none;
   margin: 0;
   padding: 0;
-  float: left;
 }
 
 .tile {
-  font-family: 'ubuntu_monoregular', monospace;
-  height: 24px;
-  width: 24px !important;
-  background-color: #333;
-  color: #3e3;
-  line-height: 24px;
-  font-size: 24px;
-  text-align: center;
+  background-color: $tile-background;
+  color: $tile-text;
   float: left;
+  font-family: 'ubuntu_monoregular', monospace;
+  font-size: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  width: 24px;
 }
 
 .regular    { font-family: 'ubuntu_monoregular', monospace; }
 .bold       { font-family: 'ubuntu_monobold', monospace; }
 .italic     { font-family: 'ubuntu_monoitalic', monospace; }
 .bolditalic { font-family: 'ubuntu_monobolditalic', monospace; }
-.player     { color: hsl(0, 80%, 80%); }
+.player     { color: $player-color; }
