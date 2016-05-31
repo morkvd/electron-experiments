@@ -65,7 +65,7 @@ class Tile extends React.Component {
     let tileCssClass = 'tile';
 
     return React.createElement(
-      'div',
+      'li',
       { className: tileCssClass },
       content
     );
