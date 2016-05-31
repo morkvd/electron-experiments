@@ -77,8 +77,7 @@ function handleKey(key) {
   if (key === 'CommandOrControl+Q') {
     globalShortcut.unregisterAll();
     app.quit();
-  } else if (key === 'Space' && gamestate.phase.current() === 'initial') {
-    gamestate.phase.next();
+  } else if (key === 'Space') {
     mainWindow.webContents.send('level-updated', generateLevel());
   }
 }
@@ -86,7 +85,6 @@ function handleKey(key) {
 
 // # GAME LOGIC
 
-// Global reference to the current state of the game
 const gamestate = {
   phase: {
     phases: ['initial', 'playing', 'end'],
@@ -102,15 +100,37 @@ const gamestate = {
   playerPos: [0, 0]
 };
 
-// Level generation
-function generateLevel() {
+function getBlankLevel() {
   let lvl = [];
   let size = 30;
   for (let i = 0; i < size; i++) {
     lvl.push([]);
     for (let j = 0; j < size; j++) {
-      lvl[i].push( 'X' );
+      lvl[i].push( ' ' );
     }
   }
   return lvl;
+};
+
+function addRoomToLevel(lvl, [x1, y1], [x2, y2]) {
+  if (y1 > y2) [y1, y2] = [y2, y1];
+  if (x1 > x2) [x1, x2] = [x2, x1];
+
+  for (let i = y1; i < y2; i++) {
+    for (let j = x1; j < x2; j++) {
+      lvl[i][j] = '·';
+    }
+  }
+  return lvl;
+};
+
+function generateLevel() {
+  return addRoomToLevel( getBlankLevel(), getRandomPoint(0,29), getRandomPoint(0,29) );
+}
+
+function getRandomPoint(min, max) {
+  let a = Math.floor(Math.random() * max) - min;
+  let b = Math.floor(Math.random() * max) - min;
+  console.log([a,b]);
+  return [a,b];
 }

@@ -75,7 +75,9 @@ class Tile extends React.Component {
 ReactDOM.render(React.createElement(PlayArea, { lvl: screens.startup }), doc.getElementById('container'));
 
 ipc.on('level-updated', (event, message) => {
-  console.log(message);
+  console.group();
+  message.forEach((curr, i) => console.log(curr.join()));
+  console.groupEnd();
   level = message;
   ReactDOM.render(React.createElement(PlayArea, { lvl: level }), doc.getElementById('container'));
 });
