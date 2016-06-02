@@ -105,9 +105,6 @@ ReactDOM.render(
 );
 
 ipc.on('level-updated', (event, message) => {
-  console.group();
-  message.forEach( (curr, i) => console.log(curr.join() ) );
-  console.groupEnd();
   level = message;
   ReactDOM.render(
     <PlayArea lvl={level} />,

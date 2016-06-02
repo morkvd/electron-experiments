@@ -7,7 +7,7 @@ const {
   globalShortcut,
   ipcMain
 } = require('electron');
-
+const GOL = require('./app/js/gol.js');
 // Global reference of the window object, to stop the window from closing
 // automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -78,7 +78,8 @@ function handleKey(key) {
     globalShortcut.unregisterAll();
     app.quit();
   } else if (key === 'Space') {
-    mainWindow.webContents.send('level-updated', generateLevel());
+    gamestate.level = GOL.next(gamestate.level);
+    mainWindow.webContents.send('level-updated', gamestate.level );
   }
 }
 
@@ -96,43 +97,8 @@ const gamestate = {
       this.i = (this.i + 1) % this.phases.length;
     }
   },
-  level: [],
+  level: null,
   playerPos: [0, 0]
 };
 
-function getBlankLevel() {
-  let lvl = [];
-  let size = 30;
-  for (let i = 0; i < size; i++) {
-    lvl.push([]);
-    for (let j = 0; j < size; j++) {
-      lvl[i].push( ' ' );
-    }
-  }
-  return lvl;
-};
-
-function addRoomToLevel(lvl, [x1, y1], [x2, y2]) {
-  if (x1 === x2) x2 < 29 ? x2++ : x2--;
-  if (y1 === y2) y2 < 29 ? y2++ : y2--;
-  if (y1 > y2) [y1, y2] = [y2, y1];
-  if (x1 > x2) [x1, x2] = [x2, x1];
-
-  for (let i = y1; i < y2; i++) {
-    for (let j = x1; j < x2; j++) {
-      lvl[i][j] = '·';
-    }
-  }
-  return lvl;
-};
-
-function generateLevel() {
-  return addRoomToLevel( getBlankLevel(), getRandomPoint(0,29), getRandomPoint(0,29) );
-}
-
-function getRandomPoint(min, max) {
-  let a = Math.floor(Math.random() * max) - min;
-  let b = Math.floor(Math.random() * max) - min;
-  console.log([a,b]);
-  return [a,b];
-}
+gamestate.level = GOL.gen();
