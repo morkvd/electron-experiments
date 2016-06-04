@@ -24,7 +24,7 @@ const genArray = (n, fill) => {
 
 const createBlankGrid = ([height, width]) => {
   let grid = genArray(height, '');
-  grid.forEach( (_, i) => {
+  grid.forEach( (v, i) => {
     grid[i] = genArray(width, ' ');
   });
   return grid;
@@ -35,21 +35,16 @@ const mapToGrid = (grid, fn) => {
 };
 
 // todo: implement game of life rules
-const grabNeighbours = (grid, [x,y]) => {
+const grabNeighbours = (grid, [x,y]) => {};
 
-}
+const aliveOrDead = (grid, [x, y]) => {};
 
-const aliveOrDead = (grid, [x, y]) => {
-
-}
-
-const decideFate = (grid) => {
-
-}
+const decideFate = (grid) => {};
 
 const gol = {
+  blankGrid: createBlankGrid([30, 30]),
   gen() {
-    return mapToGrid(createBlankGrid([30, 30]), getRandomChar);
+    return mapToGrid(this.blankGrid, getRandomChar);
   },
   next(grid) {
     return mapToGrid(grid, switchChar);

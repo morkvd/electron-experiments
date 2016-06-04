@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron main.js",
     "jsx": "babel ./app/js/window/mainWindow.jsx -o ./app/js/window/mainWindow.js",
-    "sass": "node-sass --output-style compressed -o ./app/css ./app/css"
+    "sass": "node-sass --output-style compressed -o ./app/css ./app/css",
+    "lint": "eslint main.js app/js/** --color"
   },
   "keywords": [
     "Electron",
@@ -17,9 +18,11 @@
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.8.0",
+    "chai": "^3.5.0",
     "electron-prebuilt": "^0.37.8",
     "eslint": "^2.10.0",
     "eslint-plugin-react": "^5.1.1",
+    "mocha": "^2.5.3",
     "node-sass": "^3.7.0"
   },
   "dependencies": {

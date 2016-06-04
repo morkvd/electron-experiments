@@ -16,25 +16,34 @@ module.exports = {
     ],
     "rules": {
         "indent": [
-            "error",
+            "warn",
             2
         ],
         "linebreak-style": [
-            0,
+            "warn",
             "windows"
         ],
         "quotes": [
-            "error",
+            "warn",
             "single"
         ],
         "semi": [
-            "error",
+            "warn",
             "always"
         ],
         "no-cond-assign": [
-            "error",
+            "warn",
             "except-parens"
         ],
-        "no-console": ["error", { "allow": ["log", "warn", "error"] }]
+        "no-console": [
+            "error", {
+                "allow": [
+                    "log",
+                    "warn",
+                    "error"
+                ]
+            }
+        ],
+        "no-unused-vars": "warn"
     }
 };
