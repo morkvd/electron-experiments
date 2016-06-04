@@ -1,13 +1,7 @@
-const isArray = (obj) => {
-  return Object.prototype.toString.call(obj) === '[object Array]';
-};
-
-const getRandomInt = (min, max) => {
-  return Math.floor( Math.random() * (max - min + 1) ) + min;
-};
+var _ = require('lodash');
 
 const getRandomChar = () => {
-  return getRandomInt(0, 1) === 1 ? '·' : ' ';
+  return _.random(0,1) === 1 ? '·' : ' ';
 };
 
 const switchChar = (i) => {
@@ -22,32 +16,18 @@ const genArray = (n, fill) => {
   return arr;
 };
 
-const createBlankGrid = ([height, width]) => {
-  let grid = genArray(height, '');
-  grid.forEach( (v, i) => {
-    grid[i] = genArray(width, ' ');
-  });
-  return grid;
-};
-
 const mapToGrid = (grid, fn) => {
   return grid.map(row => row.map(fn));
 };
 
-// todo: implement game of life rules
-const grabNeighbours = (grid, [x,y]) => {};
-
-const aliveOrDead = (grid, [x, y]) => {};
-
-const decideFate = (grid) => {};
 
 const gol = {
-  blankGrid: createBlankGrid([30, 30]),
+  blankLevel: genArray(900, ' '),
   gen() {
-    return mapToGrid(this.blankGrid, getRandomChar);
+    return this.blankLevel.map( getRandomChar );
   },
   next(grid) {
-    return mapToGrid(grid, switchChar);
+    return grid.map( switchChar );
   }
 };
 
