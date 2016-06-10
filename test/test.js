@@ -5,15 +5,70 @@ const _ = require('lodash');
 
 test.describe('GOL', function() {
   const testGrid = [
-  //  0,   1,   2,   3,
-     'a', 'b', 'c', 'd',
-  //  4,   5,   6,   7,
-     'e', 'f', 'g', 'h',
-  //  8,   9,  10,  11,
-     'i', 'j', 'k', 'l',
-  // 12,  13,  14,  15,
-     'm', 'n', 'o', 'p'
+    'a', 'b', 'c', 'd',
+    'e', 'f', 'g', 'h',
+    'i', 'j', 'k', 'l',
+    'm', 'n', 'o', 'p',
   ];
+  const northGrid = [
+    'm', 'n', 'o', 'p',
+    'a', 'b', 'c', 'd',
+    'e', 'f', 'g', 'h',
+    'i', 'j', 'k', 'l',
+  ];
+  const northEastGrid = [
+    'n', 'o', 'p', 'm',
+    'b', 'c', 'd', 'a',
+    'f', 'g', 'h', 'e',
+    'j', 'k', 'l', 'i',
+  ];
+  const eastGrid = [
+    'b', 'c', 'd', 'a',
+    'f', 'g', 'h', 'e',
+    'j', 'k', 'l', 'i',
+    'n', 'o', 'p', 'm',
+  ];
+  const southEastGrid = [
+    'f', 'g', 'h', 'e',
+    'j', 'k', 'l', 'i',
+    'n', 'o', 'p', 'm',
+    'b', 'c', 'd', 'a',
+  ];
+  const southGrid = [
+    'e', 'f', 'g', 'h',
+    'i', 'j', 'k', 'l',
+    'm', 'n', 'o', 'p',
+    'a', 'b', 'c', 'd',
+  ];
+  const southWestGrid = [
+    'h', 'e', 'f', 'g',
+    'l', 'i', 'j', 'k',
+    'p', 'm', 'n', 'o',
+    'd', 'a', 'b', 'c',
+  ];
+  const westGrid = [
+    'd', 'a', 'b', 'c',
+    'h', 'e', 'f', 'g',
+    'l', 'i', 'j', 'k',
+    'p', 'm', 'n', 'o',
+  ];
+  const northWestGrid = [
+    'p', 'm', 'n', 'o',
+    'd', 'a', 'b', 'c',
+    'h', 'e', 'f', 'g',
+    'l', 'i', 'j', 'k',
+  ];
+  const directionsGrid = [
+    northGrid,
+    northEastGrid,
+    eastGrid,
+    southEastGrid,
+    southGrid,
+    southWestGrid,
+    westGrid,
+    northWestGrid,
+  ];
+
   const testLineLength = 4;
 
   test.describe('getRandomChar', function() {
@@ -37,73 +92,103 @@ test.describe('GOL', function() {
     });
   });
 
+
   // NORTH
-  test.describe('getNorthNeighbour(i, grid, linelength)', function() {
-    test.it("should return the north neighbouring tile in the grid", function() {
-      const expectedOutcome = [
-        'm', 'n', 'o', 'p',
-        'a', 'b', 'c', 'd',
-        'e', 'f', 'g', 'h',
-        'i', 'j', 'k', 'l'
-      ];
+  test.describe('lookNorth(i, linelength, grid)', function() {
+    test.it("should return the north ing tile in the grid", function() {
       testGrid.map((c, i, arr) => {
-        return gol.getNorthNeighbour(i, arr, 4);
+        return gol.lookNorth(i, testLineLength, arr);
       }).forEach((c, i, arr) => {
-        assert.strictEqual(arr[i], expectedOutcome[i], 'no match');
+        assert.strictEqual(arr[i], northGrid[i], 'no match');
+      });
+    });
+  });
+
+  // NORTH EAST
+  test.describe('lookNorthEast(i, testLineLength, arr)', function() {
+    test.it("should return the north east ing tile in the grid", function() {
+      testGrid.map((c, i, arr) => {
+        return gol.lookNorthEast(i, testLineLength, arr);
+      }).forEach((c, i, arr) => {
+        assert.strictEqual(arr[i], northEastGrid[i], 'no match');
       });
     });
   });
 
   // EAST
-  test.describe('getEastNeighbour(i, grid, linelength)', function() {
-    test.it("should return the east neighbouring tile in the grid", function() {
-      const expectedOutcome = [
-         'b', 'c', 'd', 'a',
-         'f', 'g', 'h', 'e',
-         'j', 'k', 'l', 'i',
-         'n', 'o', 'p', 'm'
-      ];
+  test.describe('lookEast(i, testLineLength, arr)', function() {
+    test.it("should return the east ing tile in the grid", function() {
       testGrid.map((c, i, arr) => {
-        return gol.getEastNeighbour(i, arr, 4);
+        return gol.lookEast(i, testLineLength, arr);
       }).forEach((c, i, arr) => {
-        assert.strictEqual(arr[i], expectedOutcome[i], 'no match');
+        assert.strictEqual(arr[i], eastGrid[i], 'no match');
+      });
+    });
+  });
+
+  // SOUTHEAST
+  test.describe('lookSouthEast(i, testLineLength, arr)', function() {
+    test.it("should return the south east ing tile in the grid", function() {
+      testGrid.map((c, i, arr) => {
+        return gol.lookSouthEast(i, testLineLength, arr);
+      }).forEach((c, i, arr) => {
+        assert.strictEqual(arr[i], southEastGrid[i], 'no match');
       });
     });
   });
 
   // SOUTH
-  test.describe('getSouthNeighbour(i, grid, linelength)', function() {
-    test.it("should return the south neighbouring tile in the grid", function() {
-      const expectedOutcome = [
-        'e', 'f', 'g', 'h',
-        'i', 'j', 'k', 'l',
-        'm', 'n', 'o', 'p',
-        'a', 'b', 'c', 'd'
-      ];
+  test.describe('lookSouth(i, testLineLength, arr)', function() {
+    test.it("should return the south ing tile in the grid", function() {
       testGrid.map((c, i, arr) => {
-        return gol.getSouthNeighbour(i, arr, 4);
+        return gol.lookSouth(i, testLineLength, arr);
       }).forEach((c, i, arr) => {
-        assert.strictEqual(arr[i], expectedOutcome[i], 'no match');
+        assert.strictEqual(arr[i], southGrid[i], 'no match');
+      });
+    });
+  });
+
+  // SOUTWEST
+  test.describe('lookSouthWest(i, testLineLength, arr)', function() {
+    test.it("should return the ing tile to the south west of `i` in the grid", function() {
+      testGrid.map((c, i, arr) => {
+        return gol.lookSouthWest(i, testLineLength, arr);
+      }).forEach((c, i, arr) => {
+        assert.strictEqual(arr[i], southWestGrid[i], 'no match');
       });
     });
   });
 
   // WEST
-  test.describe('getWestNeighbour(i, grid, linelength)', function() {
-    test.it("should return the west neighbouring tile in the grid", function() {
-      const expectedOutcome = [
-        'd', 'a', 'b', 'c',
-        'h', 'e', 'f', 'g',
-        'l', 'i', 'j', 'k',
-        'p', 'm', 'n', 'o',
-      ];
+  test.describe('lookWest(i, testLineLength, arr)', function() {
+    test.it("should return the west ing tile in the grid", function() {
       testGrid.map((c, i, arr) => {
-        return gol.getWestNeighbour(i, arr, 4);
+        return gol.lookWest(i, testLineLength, arr);
       }).forEach((c, i, arr) => {
-        assert.strictEqual(arr[i], expectedOutcome[i], 'no match');
+        assert.strictEqual(arr[i], westGrid[i], 'no match');
       });
     });
   });
 
+  // NORTHWEST
+  test.describe('lookNorthWest(i, testLineLength, arr)', function() {
+    test.it('should return the tile NW of `grid[i]`', function() {
+      testGrid.map((c, i, arr) => {
+        return gol.lookNorthWest(i, testLineLength, arr);
+      }).forEach((c, i, arr) => {
+        assert.strictEqual(arr[i], northWestGrid[i], 'no match');
+      });
+    });
+  });
 
+  // DIRECTIONS
+  test.describe('gatherDirections(i, testLineLength, arr)', function() {
+    test.it('should return `grid[i]` surounding tiles', function() {
+      testGrid.map((a, i, arr) => {
+        return gol.gatherDirections(i, testLineLength, arr);
+      }).forEach((b, j, arr) => {
+        b.forEach( (c, k, arr) => assert.strictEqual(c, directionsGrid[k][j]), 'no match' );
+      });
+    });
+  });
 });
