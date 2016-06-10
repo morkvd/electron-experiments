@@ -181,13 +181,15 @@ test.describe('GOL', function() {
     });
   });
 
-  // DIRECTIONS
+  // ALL DIRECTIONS
   test.describe('gatherDirections(i, testLineLength, arr)', function() {
     test.it('should return `grid[i]` surounding tiles', function() {
       testGrid.map((a, i, arr) => {
         return gol.gatherDirections(i, testLineLength, arr);
       }).forEach((b, j, arr) => {
-        b.forEach( (c, k, arr) => assert.strictEqual(c, directionsGrid[k][j]), 'no match' );
+        b.forEach( (c, k, arr) => {
+          assert.strictEqual(c, directionsGrid[k][j], 'no match');
+        });
       });
     });
   });

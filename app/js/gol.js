@@ -100,5 +100,6 @@ exports.lookNorthWest = lookNorthWest;
 
 exports.gatherDirections = gatherDirections;
 
+
 exports.getInitialState = getInitialState;
 exports.getNextState = getNextState;
