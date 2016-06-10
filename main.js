@@ -7,7 +7,7 @@ const {
   globalShortcut,
   ipcMain
 } = require('electron');
-const GOL = require('./app/js/gol.js');
+const gol = require('./app/js/gol.js');
 // Global reference of the window object, to stop the window from closing
 // automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -78,7 +78,7 @@ function handleKey(key) {
     globalShortcut.unregisterAll();
     app.quit();
   } else if (key === 'Space') {
-    gamestate.level = GOL.next(gamestate.level);
+    gamestate.level = gol.getNextState(gamestate.level);
     mainWindow.webContents.send('level-updated', gamestate.level );
   }
 }
@@ -86,19 +86,5 @@ function handleKey(key) {
 
 // # GAME LOGIC
 
-const gamestate = {
-  phase: {
-    phases: ['initial', 'playing', 'end'],
-    i: 0,
-    current() {
-      return this.phases[this.i];
-    },
-    next() {
-      this.i = (this.i + 1) % this.phases.length;
-    }
-  },
-  level: null,
-  playerPos: [0, 0]
-};
-
-gamestate.level = GOL.gen();
+const gamestate = {};
+gamestate.level = gol.getInitialState();

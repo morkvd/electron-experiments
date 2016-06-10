@@ -7,7 +7,8 @@
     "start": "electron main.js",
     "jsx": "babel ./app/js/window/mainWindow.jsx -o ./app/js/window/mainWindow.js",
     "sass": "node-sass --output-style compressed -o ./app/css ./app/css",
-    "lint": "eslint main.js app/js/** --color"
+    "lint": "eslint main.js app/js/** --color",
+    "test": "mocha test/test.js"
   },
   "keywords": [
     "Electron",
