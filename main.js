@@ -5,12 +5,36 @@ const {
   app,
   BrowserWindow,
   globalShortcut,
-  ipcMain
-} = require('electron');
+  ipcMain,
+} = require('electron'); // eslint-disable-line import/no-unresolved
+
 const gol = require('./app/js/gol.js');
+
 // Global reference of the window object, to stop the window from closing
 // automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+
+const gamestate = { level: gol.getInitialState() };
+
+// # INPUT
+function handleKey(key) {
+  if (key === 'CommandOrControl+Q') {
+    globalShortcut.unregisterAll();
+    app.quit();
+  } else if (key === 'Space') {
+    gamestate.level = gol.getNextState(gamestate.level);
+    mainWindow.webContents.send('level-updated', gamestate.level);
+  }
+}
+
+function registerKeys() {
+  const usedKeys =
+    ['Up', 'Down', 'Left', 'Right', 'CommandOrControl+Q', 'Space'];
+  usedKeys.forEach(key => {
+    globalShortcut.register(key, () => handleKey(key));
+  });
+}
 
 // create a window, load the index.html, on close dereference window obj.
 function createWindow() {
@@ -20,10 +44,12 @@ function createWindow() {
     frame: false,
     resizable: false,
     maximizable: false,
-    title: 'VIDEOJAMES'
+    title: 'VIDEOJAMES',
   });
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
-  mainWindow.on('closed', () => mainWindow = null);
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
 
   // registers and unregisters keys on blur and focus so the keys don't get
   // intercepted when the user switches to another window.
@@ -53,7 +79,6 @@ app.on('activate', () => {
 
 // handle menubar buttons (exit and minimize) in the window
 ipcMain.on('exit-request', () => {
-  console.log('HALTING');
   globalShortcut.unregisterAll();
   app.quit();
 });
@@ -61,30 +86,3 @@ ipcMain.on('minimize-request', () => {
   globalShortcut.unregisterAll();
   mainWindow.minimize();
 });
-
-
-// # INPUT
-function registerKeys() {
-  const usedKeys =
-    ['Up', 'Down', 'Left', 'Right', 'CommandOrControl+Q', 'Space'];
-  usedKeys.forEach(key => {
-    globalShortcut.register(key, () => handleKey(key));
-  });
-}
-
-function handleKey(key) {
-  console.log(`${key} is used`);
-  if (key === 'CommandOrControl+Q') {
-    globalShortcut.unregisterAll();
-    app.quit();
-  } else if (key === 'Space') {
-    gamestate.level = gol.getNextState(gamestate.level);
-    mainWindow.webContents.send('level-updated', gamestate.level );
-  }
-}
-
-
-// # GAME LOGIC
-
-const gamestate = {};
-gamestate.level = gol.getInitialState();

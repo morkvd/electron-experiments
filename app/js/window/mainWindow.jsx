@@ -3,10 +3,12 @@
 const { ipcRenderer: ipc } = require('electron');
 
 // React and ReactDOM libraries
-const React    = require('react');
+const React = require('react');
 const ReactDOM = require('react-dom');
 
 // static screens
+
+/* eslint-disable max-len, comma-spacing */
 const screens = {
   startup: [
     'O','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','O',
@@ -38,9 +40,10 @@ const screens = {
     '#','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','#',
     '#','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','#',
     '#','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','#',
-    'O','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','O'
-  ]
+    'O','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','O',
+  ],
 };
+/* eslint-enable max-len, comma-spacing */
 
 // Reference to the document
 const doc = document;
@@ -51,7 +54,7 @@ const exitBtn = doc.querySelector('.menu-bar--btn__exit');
 exitBtn.addEventListener('click', () => ipc.send('exit-request') );
 
 const minimizeBtn = doc.querySelector('.menu-bar--btn__minimize');
-minimizeBtn.addEventListener('click', () => ipc.send('minimize-request') );
+minimizeBtn.addEventListener('click', () => ipc.send('minimize-request'));
 
 let level = [];
 
@@ -63,7 +66,7 @@ class PlayArea extends React.Component {
       tiles.push(<Tile {...this.props} key={i} i={i} />);
     }
     return (
-      <section className='play-area'>
+      <section className="play-area">
         {tiles}
       </section>
     );
@@ -72,7 +75,7 @@ class PlayArea extends React.Component {
 
 class Tile extends React.Component {
   render() {
-    let i = this.props.i;
+    const i = this.props.i;
 
     let content = this.props.lvl[i];
     let tileCssClass = 'tile';
