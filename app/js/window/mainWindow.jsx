@@ -1,6 +1,6 @@
 // IpcRenderer facilitates communication between main.js(main node process)
 // and mainWindow.js (the window process).
-const { ipcRenderer: ipc } = require('electron');
+const { ipcRenderer: ipc } = require('electron'); // eslint-disable-line import/no-unresolved
 
 // React and ReactDOM libraries
 const React = require('react');
