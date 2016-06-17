@@ -10,5 +10,8 @@ module.exports = {
             "experimentalObjectRestSpread": true,
             "jsx": true
         }
+    },
+    "rules": {
+        "no-confusing-arrow": 0
     }
 };

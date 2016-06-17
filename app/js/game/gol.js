@@ -80,8 +80,22 @@ function gatherDirections(i, len, grid) {
 }
 
 function countAlive(arr) {
-  /* eslint no-confusing-arrow: ["error", {allowParens: true}] */
-  return _.reduce(arr, (acc, value) => (value === tiles.alive ? acc + 1 : acc));
+  return _.reduce(arr, (acc, value) => (value === tiles.alive ? acc + 1 : acc), 0);
+}
+
+function aliveOrDead(neighbours, tile) {
+  const alive = tiles.alive;
+  const dead = tiles.dead;
+  if (tile === alive) {
+    if (neighbours < 2 || neighbours > 3) {
+      return dead;
+    } else if (neighbours === 2 || neighbours === 3) {
+      return alive;
+    }
+  } else if (tile === dead && neighbours === 3) {
+    return alive;
+  }
+  return dead;
 }
 
 function getInitialState() {
@@ -107,3 +121,4 @@ exports.gatherDirections = gatherDirections;
 exports.getInitialState = getInitialState;
 exports.getNextState = getNextState;
 exports.countAlive = countAlive;
+exports.tick = tick;

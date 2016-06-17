@@ -205,5 +205,50 @@ test.describe('GOL', function testGOL() {
       );
     });
   });
+
+  test.describe('countAlive(arr)', function testCountAlive() {
+    test.it(
+      'should return array where each item contains the number of alive neighbours',
+      function asserCountAlive() {
+        const countAliveArr = [
+          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '·'], // 1
+          ['·', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '·'], // 2
+          ['·', ' ', ' ', ' ', '·', ' ', ' ', ' ', '·'], // 3
+          ['·', ' ', '·', ' ', '·', ' ', ' ', ' ', '·'], // 4
+          ['·', ' ', '·', ' ', '·', ' ', '·', ' ', '·'], // 5
+        ];
+        const countAliveResults = [1, 2, 3, 4, 5];
+
+        countAliveArr.map((a) => gol.countAlive(a))
+          .forEach((b, i) => {
+            assert.strictEqual(b, countAliveResults[i], 'no match');
+          }
+        );
+      }
+    );
+  });
+
+  test.describe('nextStep(arr)', function testNextStep() {
+    test.it('should return next step in game of life', function assertNextStep() {
+      const initialArr = [
+        ' ', ' ', ' ', ' ',
+        ' ', ' ', ' ', '·',
+        ' ', '·', '·', ' ',
+        ' ', '·', '·', ' ',
+      ];
+      const resultNums = [
+        2, 2, 3, 2,
+        2, 2, 3, 1,
+        3, 3, 4, 3,
+        2, 3, 3, 2,
+      ];
+      const resultArr = [
+        ' ', ' ', '·', ' ',
+        ' ', ' ', '·', ' ',
+        '·', '·', ' ', '·',
+        ' ', '·', '·', ' ',
+      ];
+    });
+  });
 });
 /* eslint-enable prefer-arrow-callback */
