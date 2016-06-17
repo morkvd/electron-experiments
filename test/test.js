@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 const test = require('mocha');
 const assert = require('chai').assert;
-const gol = require('../app/js/gol.js');
+const gol = require('../app/js/game/gol.js');
 
 test.describe('GOL', function testGOL() {
   const testGrid = [

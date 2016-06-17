@@ -1,12 +1,17 @@
 const _ = require('lodash');
 
+const tiles = {
+  alive: '·',
+  dead: ' ',
+};
+
 // returns one of two random characters
 function getRandomChar() {
-  return _.random(0, 1) === 1 ? '·' : ' ';
+  return _.random(0, 1) === 1 ? tiles.alive : tiles.dead;
 }
 
 function switchChar(i) {
-  return i === ' ' ? '·' : ' ';
+  return i === tiles.alive ? tiles.dead : tiles.alive;
 }
 
 // generates an array of length `n` where each array-item has the value of `fill`
@@ -74,6 +79,11 @@ function gatherDirections(i, len, grid) {
   ];
 }
 
+function countAlive(arr) {
+  /* eslint no-confusing-arrow: ["error", {allowParens: true}] */
+  return _.reduce(arr, (acc, value) => (value === tiles.alive ? acc + 1 : acc));
+}
+
 function getInitialState() {
   return _.map(genArray(900, ' '), getRandomChar);
 }
@@ -96,3 +106,4 @@ exports.lookNorthWest = lookNorthWest;
 exports.gatherDirections = gatherDirections;
 exports.getInitialState = getInitialState;
 exports.getNextState = getNextState;
+exports.countAlive = countAlive;

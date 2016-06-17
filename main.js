@@ -8,7 +8,7 @@ const {
   ipcMain,
 } = require('electron'); // eslint-disable-line import/no-unresolved
 
-const gol = require('./app/js/gol.js');
+const gol = require('./app/js/game/gol.js');
 
 // Global reference of the window object, to stop the window from closing
 // automatically when the JavaScript object is garbage collected.
