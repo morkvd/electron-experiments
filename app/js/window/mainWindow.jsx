@@ -61,30 +61,28 @@ let level = [];
 const Tile = (i, content) => (<div className="tile" key={i}>{content}</div>);
 
 // PlayArea component is the part of the window that displays the game.
-class PlayArea extends React.Component {
-  render() {
-    let tiles = [];
-    for (let i = 0; i < this.props.lvl.length; i++) {
-      tiles.push(Tile(i, this.props.lvl[i]));
-    }
-    return (
-      <section className="play-area">
-        {tiles}
-      </section>
-    );
+const PlayArea = (lvl) => {
+  const tiles = [];
+  for (let i = 0; i < lvl.length; i++) {
+    tiles.push(Tile(i, lvl[i]));
   }
-}
+  return (
+    <section className="play-area">
+      {tiles}
+    </section>
+  );
+};
 
 
 ReactDOM.render(
-  <PlayArea lvl={screens.startup} />,
+  PlayArea(screens.startup),
   doc.getElementById('container')
 );
 
 ipc.on('level-updated', (event, message) => {
   level = message;
   ReactDOM.render(
-    <PlayArea lvl={level} />,
+    PlayArea(level),
     doc.getElementById('container')
   );
 });
