@@ -72,17 +72,17 @@ test.describe('GOL', function testGOL() {
   const testLineLength = 4;
 
   test.describe('getRandomChar', function testGetRandomChar() {
-    test.it('should return " " or "·"', function assertGetRandomChar() {
-      assert.oneOf(gol.getRandomChar(), [' ', '·'], 'not one of the possibilities');
+    test.it('should return " " or "×"', function assertGetRandomChar() {
+      assert.oneOf(gol.getRandomChar(), [' ', '×'], 'not one of the possibilities');
     });
   });
 
   test.describe('switchChar(i)', function testSwitchChar() {
     test.it(
-      "should return '·' when i = ' ', else is should return ' '",
+      "should return '×' when i = ' ', else is should return ' '",
       function assertSwitchChar() {
-        assert.strictEqual(gol.switchChar('·'), ' ', "return value of switchChar isn't correct");
-        assert.strictEqual(gol.switchChar(' '), '·', "return value of switchChar isn't correct");
+        assert.strictEqual(gol.switchChar('×'), ' ', "return value of switchChar isn't correct");
+        assert.strictEqual(gol.switchChar(' '), '×', "return value of switchChar isn't correct");
       }
     );
   });
@@ -211,13 +211,13 @@ test.describe('GOL', function testGOL() {
       'should return array where each item contains the number of alive neighbours',
       function asserCountAlive() {
         const countAliveArr = [
-          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '·'], // 1
-          ['·', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '·'], // 2
-          ['·', ' ', ' ', ' ', '·', ' ', ' ', ' ', '·'], // 3
-          ['·', ' ', '·', ' ', '·', ' ', ' ', ' ', '·'], // 4
-          ['·', ' ', '·', ' ', '·', ' ', '·', ' ', '·'], // 5
+          [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '×'], // 1
+          ['×', ' ', '×', ' ', '×', ' ', ' ', ' ', '×'], // 4
+          ['×', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '×'], // 2
+          ['×', ' ', ' ', ' ', '×', ' ', ' ', ' ', '×'], // 3
+          ['×', ' ', '×', ' ', '×', ' ', '×', ' ', '×'], // 5
         ];
-        const countAliveResults = [1, 2, 3, 4, 5];
+        const countAliveResults = [1, 4, 2, 3, 5];
 
         countAliveArr.map((a) => gol.countAlive(a))
           .forEach((b, i) => {
@@ -228,26 +228,72 @@ test.describe('GOL', function testGOL() {
     );
   });
 
-  test.describe('nextStep(arr)', function testNextStep() {
-    test.it('should return next step in game of life', function assertNextStep() {
-      const initialArr = [
-        ' ', ' ', ' ', ' ',
-        ' ', ' ', ' ', '·',
-        ' ', '·', '·', ' ',
-        ' ', '·', '·', ' ',
-      ];
-      const resultNums = [
-        2, 2, 3, 2,
-        2, 2, 3, 1,
-        3, 3, 4, 3,
-        2, 3, 3, 2,
-      ];
-      const resultArr = [
-        ' ', ' ', '·', ' ',
-        ' ', ' ', '·', ' ',
-        '·', '·', ' ', '·',
-        ' ', '·', '·', ' ',
-      ];
+  test.describe('aliveOrDead(neighbours, tile)', function testAliveOrDead() {
+    test.it(
+      'should return array where each item contains the number of alive neighbours',
+      function asserAliveOrDead() {
+        const start = [
+          ' ', ' ', ' ', ' ',
+          ' ', ' ', ' ', '×',
+          ' ', '×', '×', ' ',
+          ' ', '×', '×', ' ',
+        ];
+        const nums = [
+          2, 2, 3, 2,
+          2, 2, 3, 1,
+          3, 3, 4, 3,
+          2, 3, 3, 2,
+        ];
+        const end = [
+          ' ', ' ', '×', ' ',
+          ' ', ' ', '×', ' ',
+          '×', '×', ' ', '×',
+          ' ', '×', '×', ' ',
+        ];
+
+        assert.strictEqual(gol.aliveOrDead(nums[0], start[0]), end[0], 'fail 0');
+        assert.strictEqual(gol.aliveOrDead(nums[1], start[1]), end[1], 'fail 1');
+        assert.strictEqual(gol.aliveOrDead(nums[2], start[2]), end[2], 'fail 2');
+        assert.strictEqual(gol.aliveOrDead(nums[3], start[3]), end[3], 'fail 3');
+        assert.strictEqual(gol.aliveOrDead(nums[4], start[4]), end[4], 'fail 4');
+        assert.strictEqual(gol.aliveOrDead(nums[5], start[5]), end[5], 'fail 5');
+        assert.strictEqual(gol.aliveOrDead(nums[6], start[6]), end[6], 'fail 6');
+        assert.strictEqual(gol.aliveOrDead(nums[7], start[7]), end[7], 'fail 7');
+        assert.strictEqual(gol.aliveOrDead(nums[8], start[8]), end[8], 'fail 8');
+        assert.strictEqual(gol.aliveOrDead(nums[9], start[9]), end[9], 'fail 9');
+        assert.strictEqual(gol.aliveOrDead(nums[10], start[10]), end[10], 'fail 10');
+        assert.strictEqual(gol.aliveOrDead(nums[11], start[11]), end[11], 'fail 11');
+        assert.strictEqual(gol.aliveOrDead(nums[12], start[12]), end[12], 'fail 12');
+        assert.strictEqual(gol.aliveOrDead(nums[13], start[13]), end[13], 'fail 13');
+        assert.strictEqual(gol.aliveOrDead(nums[14], start[14]), end[14], 'fail 14');
+        assert.strictEqual(gol.aliveOrDead(nums[15], start[15]), end[15], 'fail 15');
+      }
+    );
+  });
+
+  test.describe('chainzinger', function testDebug() {
+    const thisIsHowItStarts = [
+      ' ', ' ', ' ', ' ',
+      ' ', ' ', ' ', '×',
+      ' ', '×', '×', ' ',
+      ' ', '×', '×', ' ',
+    ];
+    test.it('it should gather all neighbouring tiles', function assertGetThemNeighbours() {
+      const i2neighbours = ['×', ' ', ' ', '×', ' ', ' ', ' ', '×'];
+      const resulti2neighbours = gol.gatherDirections(2, 4, thisIsHowItStarts);
+      for (let i = 0; i < i2neighbours.length; i++) {
+        assert.strictEqual(resulti2neighbours[i], i2neighbours[i], `neighbour ${i} is wrong`);
+      }
+    });
+
+    test.it('it should count the number of alive neighbours', function assertCountAlive() {
+      const i2neighbours = ['×', ' ', ' ', '×', ' ', ' ', ' ', '×'];
+      const numAliveNeighbours = gol.countAlive(i2neighbours);
+      assert.strictEqual(numAliveNeighbours, 3, 'count is wrong');
+    });
+
+    test.it('it should return the correct tile based on the number', function assertAliveDead() {
+      assert.strictEqual(gol.aliveOrDead(3, ' '), '×', 'tile is wrong');
     });
   });
 });

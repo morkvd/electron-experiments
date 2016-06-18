@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 const tiles = {
-  alive: '·',
+  alive: '×',
   dead: ' ',
 };
 
@@ -98,12 +98,16 @@ function aliveOrDead(neighbours, tile) {
   return dead;
 }
 
+function tickTile(v, i, a) {
+  return aliveOrDead(countAlive(gatherDirections(i, 30, a)), v);
+}
+
 function getInitialState() {
   return _.map(genArray(900, ' '), getRandomChar);
 }
 
 function getNextState(grid) {
-  return _.map(grid, switchChar);
+  return _.map(grid, tickTile);
 }
 
 exports.getRandomChar = getRandomChar;
@@ -121,4 +125,4 @@ exports.gatherDirections = gatherDirections;
 exports.getInitialState = getInitialState;
 exports.getNextState = getNextState;
 exports.countAlive = countAlive;
-exports.tick = tick;
+exports.aliveOrDead = aliveOrDead;
