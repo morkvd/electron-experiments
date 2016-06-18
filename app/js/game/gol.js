@@ -1,13 +1,10 @@
 const _ = require('lodash');
 
-const tiles = {
-  alive: '×',
-  dead: ' ',
-};
+const cell = { alive: '×', dead: ' ' };
 
 // returns one of two random characters
 function getRandomChar() {
-  return _.random(0, 1) === 1 ? tiles.alive : tiles.dead;
+  return _.random(0, 1) === 1 ? cell.alive : cell.dead;
 }
 
 // generates an array of length `n` where each array-item has the value of `fill`
@@ -76,12 +73,12 @@ function gatherDirections(i, len, grid) {
 }
 
 function countAlive(arr) {
-  return _.reduce(arr, (acc, value) => (value === tiles.alive ? acc + 1 : acc), 0);
+  return _.reduce(arr, (acc, value) => (value === cell.alive ? acc + 1 : acc), 0);
 }
 
 function aliveOrDead(neighbours, tile) {
-  const alive = tiles.alive;
-  const dead = tiles.dead;
+  const alive = cell.alive;
+  const dead = cell.dead;
   if (tile === alive) {
     if (neighbours < 2 || neighbours > 3) {
       return dead;
@@ -102,7 +99,7 @@ function getInitialState() {
   return _.map(genArray(900, ' '), getRandomChar);
 }
 
-function getNextState(grid) {
+function tick(grid) {
   return _.map(grid, tickTile);
 }
 
@@ -118,6 +115,6 @@ exports.lookWest = lookWest;
 exports.lookNorthWest = lookNorthWest;
 exports.gatherDirections = gatherDirections;
 exports.getInitialState = getInitialState;
-exports.getNextState = getNextState;
+exports.tick = tick;
 exports.countAlive = countAlive;
 exports.aliveOrDead = aliveOrDead;

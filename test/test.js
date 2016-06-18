@@ -77,16 +77,6 @@ test.describe('GOL', function testGOL() {
     });
   });
 
-  test.describe('switchChar(i)', function testSwitchChar() {
-    test.it(
-      "should return '×' when i = ' ', else is should return ' '",
-      function assertSwitchChar() {
-        assert.strictEqual(gol.switchChar('×'), ' ', "return value of switchChar isn't correct");
-        assert.strictEqual(gol.switchChar(' '), '×', "return value of switchChar isn't correct");
-      }
-    );
-  });
-
   test.describe('genArray(n, fill)', function testGenArray() {
     test.it(
       'should return an array of length n where each item is equal to fill',
@@ -100,7 +90,6 @@ test.describe('GOL', function testGOL() {
       }
     );
   });
-
 
   // NORTH
   test.describe('lookNorth(i, linelength, grid)', function testLookNorth() {

@@ -1,36 +1,28 @@
 // App controls application life, BrowserWindow creates native browser window,
 // globalShortcut registers keys as input, ipcMain handles communication from
 // window to main process.
-const {
-  app,
-  BrowserWindow,
-  globalShortcut,
-  ipcMain,
-} = require('electron'); // eslint-disable-line import/no-unresolved
-
+// eslint-disable-next-line import/no-unresolved
+const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 const gol = require('./app/js/game/gol.js');
 
 // Global reference of the window object, to stop the window from closing
 // automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-
 const gamestate = { level: gol.getInitialState() };
 
-// # INPUT
 function handleKey(key) {
   if (key === 'CommandOrControl+Q') {
     globalShortcut.unregisterAll();
     app.quit();
   } else if (key === 'Space') {
-    gamestate.level = gol.getNextState(gamestate.level);
-    mainWindow.webContents.send('level-updated', gamestate.level);
+    gamestate.level = gol.tick(gamestate.level);
+    mainWindow.webContents.send('update', gamestate.level);
   }
 }
 
 function registerKeys() {
-  const usedKeys =
-    ['Up', 'Down', 'Left', 'Right', 'CommandOrControl+Q', 'Space'];
+  const usedKeys = ['CommandOrControl+Q', 'Space'];
   usedKeys.forEach(key => {
     globalShortcut.register(key, () => handleKey(key));
   });
@@ -40,7 +32,7 @@ function registerKeys() {
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 720,
-    height: 752, // 720 + 32
+    height: 752, // 720 + 32 (window height + menubar height)
     frame: false,
     resizable: false,
     maximizable: false,
@@ -64,6 +56,7 @@ function createWindow() {
 app.on('ready', () => {
   createWindow();
 });
+
 // Quit when all windows are closed.
 // On OS X applications stay active until the user quits with Cmd + Q
 app.on('window-all-closed', () => {
@@ -72,6 +65,7 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
 // On OS X it's common to re-create a window when the dock icon is clicked
 app.on('activate', () => {
   if (mainWindow === null) createWindow();
