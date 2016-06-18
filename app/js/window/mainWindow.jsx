@@ -23,8 +23,8 @@ const screens = {
     '#','·','·','·','·','·','·','·','·','G','A','M','E','·','O','F','·','L','I','F','E','·','·','·','·','·','·','·','·','#',
     '#','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','#',
     '#','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','#',
-    '#','·','·','·','·','·','·','·','·','P','R','E','S','S','·','·','S','P','A','C','E','·','·','·','·','·','·','·','·','#',
-    '#','·','·','·','·','·','·','·','·','·','·','T','O','·','S','T','A','R','T','·','·','·','·','·','·','·','·','·','·','#',
+    '#','·','·','·','·','·','·','·','·','P','r','e','s','s','·','·','S','P','A','C','E','·','·','·','·','·','·','·','·','#',
+    '#','·','·','·','·','·','·','·','·','·','·','t','o','·','s','t','a','r','t','·','·','·','·','·','·','·','·','·','·','#',
     '#','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','#',
     '#','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','#',
     '#','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','#',
@@ -45,27 +45,27 @@ const screens = {
 };
 /* eslint-enable max-len, comma-spacing */
 
-'john horton conway\'s game of life '
-
 // Reference to the document
 const doc = document;
 
 // Select menu bar button and add an event listener.
 // on click send a the requested action to the main process
 const exitBtn = doc.querySelector('.menu-bar--btn__exit');
-exitBtn.addEventListener('click', () => ipc.send('exit-request') );
+exitBtn.addEventListener('click', () => ipc.send('exit-request'));
 
 const minimizeBtn = doc.querySelector('.menu-bar--btn__minimize');
 minimizeBtn.addEventListener('click', () => ipc.send('minimize-request'));
 
 let level = [];
 
+const Tile = (i, content) => (<div className="tile" key={i}>{content}</div>);
+
 // PlayArea component is the part of the window that displays the game.
 class PlayArea extends React.Component {
   render() {
     let tiles = [];
     for (let i = 0; i < this.props.lvl.length; i++) {
-      tiles.push(<Tile {...this.props} key={`tile${i}`} i={i} />);
+      tiles.push(Tile(i, this.props.lvl[i]));
     }
     return (
       <section className="play-area">
@@ -75,18 +75,6 @@ class PlayArea extends React.Component {
   }
 }
 
-class Tile extends React.Component {
-  render() {
-    const i = this.props.i;
-
-    let content = this.props.lvl[i];
-    let tileCssClass = 'tile';
-
-    return (
-      <div className={tileCssClass}>{content}</div>
-    );
-  }
-}
 
 ReactDOM.render(
   <PlayArea lvl={screens.startup} />,
