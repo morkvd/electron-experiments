@@ -65,7 +65,7 @@ class PlayArea extends React.Component {
   render() {
     let tiles = [];
     for (let i = 0; i < this.props.lvl.length; i++) {
-      tiles.push(<Tile {...this.props} key={i} i={i} />);
+      tiles.push(<Tile {...this.props} key={`tile${i}`} i={i} />);
     }
     return (
       <section className="play-area">
