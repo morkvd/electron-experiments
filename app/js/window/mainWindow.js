@@ -27,7 +27,7 @@ minimizeBtn.addEventListener('click', () => ipc.send('minimize-request'));
 
 let level = [];
 
-const Tile = (i, content) => React.createElement(
+const Tile = (content, i) => React.createElement(
   'div',
   { className: 'tile', key: i },
   content
@@ -35,14 +35,11 @@ const Tile = (i, content) => React.createElement(
 
 // PlayArea component is the part of the window that displays the game.
 const PlayArea = lvl => {
-  const tiles = [];
-  for (let i = 0; i < lvl.length; i++) {
-    tiles.push(Tile(i, lvl[i]));
-  }
+  let coolbeans = lvl.map((v, i) => Tile(v, i));
   return React.createElement(
     'section',
     { className: 'play-area' },
-    tiles
+    coolbeans
   );
 };
 

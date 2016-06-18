@@ -58,21 +58,17 @@ minimizeBtn.addEventListener('click', () => ipc.send('minimize-request'));
 
 let level = [];
 
-const Tile = (i, content) => (<div className="tile" key={i}>{content}</div>);
+const Tile = (content, i) => (<div className="tile" key={i}>{content}</div>);
 
 // PlayArea component is the part of the window that displays the game.
 const PlayArea = (lvl) => {
-  const tiles = [];
-  for (let i = 0; i < lvl.length; i++) {
-    tiles.push(Tile(i, lvl[i]));
-  }
+  let coolbeans = lvl.map((v, i) => Tile(v, i));
   return (
     <section className="play-area">
-      {tiles}
+      {coolbeans}
     </section>
   );
 };
-
 
 ReactDOM.render(
   PlayArea(screens.startup),
