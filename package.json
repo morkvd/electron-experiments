@@ -13,7 +13,9 @@
   "keywords": [
     "Electron",
     "experiment",
-    "learning"
+    "learning",
+    "game of life",
+    "probably terrible"
   ],
   "author": "Mark van Dijken",
   "license": "MIT",

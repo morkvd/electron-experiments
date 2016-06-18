@@ -12,6 +12,7 @@ module.exports = {
         }
     },
     "rules": {
-        "no-confusing-arrow": 0
+        "no-confusing-arrow": 0,
+        "spaced-comment": 0
     }
 };
