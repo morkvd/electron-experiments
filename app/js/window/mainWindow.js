@@ -25,27 +25,20 @@ exitBtn.addEventListener('click', () => ipc.send('exit-request'));
 const minimizeBtn = doc.querySelector('.menu-bar--btn__minimize');
 minimizeBtn.addEventListener('click', () => ipc.send('minimize-request'));
 
-let level = [];
-
-const Tile = (content, i) => React.createElement(
+const tile = (content, i) => React.createElement(
   'div',
   { className: 'tile', key: i },
   content
 );
 
 // PlayArea component is the part of the window that displays the game.
-const PlayArea = lvl => {
-  let coolbeans = lvl.map((v, i) => Tile(v, i));
-  return React.createElement(
-    'section',
-    { className: 'play-area' },
-    coolbeans
-  );
-};
-
-ReactDOM.render(PlayArea(screens.startup), doc.getElementById('container'));
+const playArea = lvl => React.createElement(
+  'section',
+  { className: 'play-area' },
+  lvl.map((v, i) => tile(v, i))
+);
 
 ipc.on('level-updated', (event, message) => {
-  level = message;
-  ReactDOM.render(PlayArea(level), doc.getElementById('container'));
+  ReactDOM.render(playArea(message), doc.getElementById('container'));
 });
+ReactDOM.render(playArea(screens.startup), doc.getElementById('container'));

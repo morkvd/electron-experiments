@@ -10,10 +10,6 @@ function getRandomChar() {
   return _.random(0, 1) === 1 ? tiles.alive : tiles.dead;
 }
 
-function switchChar(i) {
-  return i === tiles.alive ? tiles.dead : tiles.alive;
-}
-
 // generates an array of length `n` where each array-item has the value of `fill`
 function genArray(n, fill) {
   const arr = [];
@@ -111,7 +107,6 @@ function getNextState(grid) {
 }
 
 exports.getRandomChar = getRandomChar;
-exports.switchChar = switchChar;
 exports.genArray = genArray;
 exports.lookNorth = lookNorth;
 exports.lookNorthEast = lookNorthEast;
