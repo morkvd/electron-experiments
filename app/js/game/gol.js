@@ -35,7 +35,8 @@ function randomCell() {
 // generates an array of length `n` where each array-item has the value of `fill`
 function createGrid(n, fill) {
   const arr = [];
-  for (let i = 0; i < n; i++) {
+  let i;
+  for (i = n; i--;) {
     arr.push(fill);
   }
   return arr;
